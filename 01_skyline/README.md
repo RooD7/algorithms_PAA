@@ -6,7 +6,8 @@ A common classic problem in algorithms that handle drawing images is the elimina
 
 The diagram below shows a graphical representation for an instance of the problem.
 
-![alt text](https://github.com/RooD7/algorithms_PAA/images/01_1.png "Skyline Example")
+![alt text](https://github.com/RooD7/algorithms_PAA/blob/master/images/01_1.png "Skyline Example")
+
 
 The figure on the left graphically represents the input that will be provided verbatim. The figure on the right graphs the output that will also be provided verbatim.
 
@@ -15,13 +16,13 @@ The figure on the left graphically represents the input that will be provided ve
 The entrance is a sequence of triples of buildings. All building coordinates are integers less than 10,000 and there will be at least one and no more than 5000 buildings in the input file. The triples will be ordered by Ei, the x-coordinate to the left of the building, so that the building with the smallest x-coordinate on the left is the first in the input file. The triples will be provided one per line, ending the entry with the triple (0,0,0). Following is the entry for the example instance:
 
 ```python
-(1.11.5)
+(1,11,5)
 (2,6,7)
-(3.13.9)
+(3,13,9)
 (12,7,16)
 (14,3,25)
 (19,18,22)
-(23.13,29)
+(23,13,29)
 (24,4,28)
 (0,0,0)
 ```
