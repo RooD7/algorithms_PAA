@@ -4,47 +4,49 @@
 
 def passoSkyline(R, T):
 	if T != []:
-		T0 = T[0]
-		if R == []:
-			R.append(T0[0])
-			R.append(T0[1])
-			R.append(T0[2])
+		new = T[0]
+		newX = new[0]
+		newY = new[1]
+		newZ = new[2]
+		if newY == 0:
+			print("Cond 0")
+			T.pop(0)
+			passoSkyline(R,T)
+		elif R == []:
+			print("Cond 1")
+			R.append(newX)
+			R.append(newY)
+			R.append(newZ)
 			T.pop(0)
 			passoSkyline(R,T)
 		else:
-			print("OK")
-			y = R[-2]
-			z = R[-1]
-
-			print(z, T0[1], y, T0[2], T)
-			if y == 0 and z == 0:
-				print("Cond 0")
-				R.pop()
-				R.pop()
-				R.append(T0[0])
-				R.append(T0[1])
-				R.append(T0[2])
-				T.pop(0)
-				passoSkyline(R,T)
-			# T0 comeca antes do termino de z
-			# T0 eh maior que o y, entao add
+			print("Cond 2")
+			oldY = R[-2]
+			oldZ = R[-1]
+			print(oldZ, newY, oldY, newZ, T)
+			# new comeca antes do termino de oldZ
+			# new eh maior que o oldY, entao add
 			#a porra da linha encontrou uma linha maior que ela, adiciona a nova linha
-			elif z > T0[1] and y < T0[2]:
-				print("Cond 1")
+			if newX < oldZ and newY > oldY:
+				print("Cond 3")
 				R.pop()
-				R.append(T0[0])
-				R.append(T0[1])
-				R.append(T0[2])
+				R.append(newX)
+				R.append(newY)
+				R.append(newZ)
 				T.pop(0)
 				passoSkyline(R,T)
-			elif(z < T0[0]):
-				print("Cond 2")
-				R.pop()
-				R.append(T0[0])
-				R.append(T0[1])
-				R.append(T0[2])
-				T.pop(0)
-				passoSkyline(R,T)
+			# vai descer
+			elif oldY > newY:
+				for a in T:
+					if a[0] < oldZ and a[2] > oldZ:
+						print("Cond 4")
+						R.pop()
+						R.append(a[0])
+						R.append(a[1])
+						R.append(a[2])
+						T.remove(a)
+						passoSkyline(R,T)
+						break
 			#a linha nao encontrou mais nada a frente, desce
 			else:
 				pass
