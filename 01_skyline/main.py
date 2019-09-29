@@ -1,66 +1,60 @@
-# R -> Result
-# T ->
-
-
+#
+# Rodrigo Sousa - 0011264
+#
 def passoSkyline(R, T):
 	if T != []:
 		new = T[0]
-		newX = new[0]
-		newY = new[1]
-		newZ = new[2]
+		newX, newY, newZ = new[0], new[1], new[2]
 		if newY == 0:
-			print("Cond 0")
 			T.pop(0)
 			passoSkyline(R,T)
 		elif R == []:
-			print("Cond 1")
 			R.append(newX)
 			R.append(newY)
 			R.append(newZ)
-			T.pop(0)
+			# T.pop(0)
 			passoSkyline(R,T)
 		else:
-			print("Cond 2")
-			oldY = R[-2]
-			oldZ = R[-1]
-			print(oldZ, newY, oldY, newZ, T)
-			# new comeca antes do termino de oldZ
-			# new eh maior que o oldY, entao add
-			#a porra da linha encontrou uma linha maior que ela, adiciona a nova linha
-			if newX < oldZ and newY > oldY:
-				print("Cond 3")
+			oldX, oldY, oldZ = R[-3], R[-2], R[-1]
+			
+			# encontra a intersecao de maior altura
+			maior = (0,0,0)
+			for a in T:
+				if oldX < a[0] < oldZ and oldY < a[1]:
+					maior = a
+					break
+				elif a[0] <= oldZ and a[2] > oldZ:
+					if a[1] > maior[1]:
+						maior = a
+					if oldZ > a[2]:
+						T.remove(a)
+			if maior != (0,0,0):
 				R.pop()
-				R.append(newX)
-				R.append(newY)
-				R.append(newZ)
-				T.pop(0)
+				# se eh maior usa maior[0], se eh menor usa oldZ 
+				if oldY < maior[1]:
+					R.append(maior[0])
+				else:
+					R.append(oldZ)
+				R.append(maior[1])
+				R.append(maior[2])
+				# T.remove(maior)
 				passoSkyline(R,T)
-			# vai descer
-			elif oldY > newY:
+			else:
 				for a in T:
-					if a[0] < oldZ and a[2] > oldZ:
-						print("Cond 4")
-						R.pop()
+					if a[0] > oldZ:
+						R.append(0)
 						R.append(a[0])
 						R.append(a[1])
 						R.append(a[2])
-						T.remove(a)
+						# T.remove(a)
 						passoSkyline(R,T)
 						break
-			#a linha nao encontrou mais nada a frente, desce
-			else:
-				pass
 	return R
-
-
-# S = [(0,8,5), (2, 10, 9), (1, 4, 7), (11, 5, 15), \
-# 	(17, 11, 20), (19, 17, 22), (14, 3, 28), \
-# 	(25, 13, 30), (8, 6, 23)]
 
 inputs = []
 
 # TEST
-f = open("1.in", "r")
+f = open("4.in", "r")
 line = f.readline()
 while True:
 	if line == '':
@@ -69,18 +63,22 @@ while True:
 	line = f.readline()
 
 # PRODUCTION
-# line = input()
+
 # while True:
-# 	if line == None:
+# 	try:
+# 		line = str(input())
+# 		if line != "":
+# 			inputs.append(eval(line))
+# 	except(EOFError):
 # 		break
-# 	inputs.append(eval(line))
-# 	line = input()
 
 inputs.sort(key=lambda x: x[0])
-print(inputs)
 
 RT = passoSkyline([],inputs)
-print(RT)
-# R = ()
-# for T in S:
-# 	R = passoSkyline(R, T)
+RT.append(0)
+result = str(RT)
+result = result.replace("[","(")
+result = result.replace("]",")")
+result = result.replace(" ","")
+print(result)
+# print("(0,8,1,11,3,13,9,8,10,4,11,5,12,7,17,11,19,18,22,3,23,13,30,2,34,15,43,7,58,2,109,0)")
