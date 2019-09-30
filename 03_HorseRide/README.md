@@ -1,10 +1,10 @@
-# Shortest horse ride
+# Shortest Horse Ride
 
 This problem is a more interesting variant of the classic horse ride problem going through every square of a chess board without repetition. The present problem consists of, given a set of houses provided as input, determining the shortest path a horse can make to pass over all given houses, whether or not passing over any house at all.
 
 An elegant way to model this problem is to map the horse's possible jumps in a 64-vertex graph where each vertex corresponds to a square of the board, as shown in the figure below:
 
-![alt text](https://github.com/RooD7/algorithms_PAA/blob/master/images/01_1.png "Horse Ride Example")
+![alt text](https://github.com/RooD7/algorithms_PAA/blob/master/images/03_1.png "Horse Ride Example")
 
 The algorithms that solve this problem are not very efficient, so the input provided will be less than or equal to 15.
 
