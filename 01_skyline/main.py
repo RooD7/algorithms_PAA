@@ -31,12 +31,16 @@ def passoSkyline(R, T):
 			if maior != (0,0,0):
 				R.pop()
 				# se eh maior usa maior[0], se eh menor usa oldZ 
-				if oldY < maior[1]:
+				if oldY == maior[1]:
+					R.append(maior[2])
+				elif oldY < maior[1]:
 					R.append(maior[0])
+					R.append(maior[1])
+					R.append(maior[2])
 				else:
 					R.append(oldZ)
-				R.append(maior[1])
-				R.append(maior[2])
+					R.append(maior[1])
+					R.append(maior[2])
 				# T.remove(maior)
 				passoSkyline(R,T)
 			else:
@@ -63,7 +67,6 @@ while True:
 	line = f.readline()
 
 # PRODUCTION
-
 # while True:
 # 	try:
 # 		line = str(input())
