@@ -1,4 +1,5 @@
 import numpy as np
+import math
 
 def main():
 	loadFile('1.in')
@@ -6,7 +7,30 @@ def main():
 
 def NearestPointProblem(cordXY):
 	print(cordXY)
+	print(len(cordXY))
+	dists = []
+	for i in range(len(cordXY)-1):
+		for j in range(len(cordXY)-1):
+			if i < j:
+				print(i,j)
+				dists.append(dist(cordXY[i], cordXY[j]))
 
+	menor = dists[0]
+	print(dists)
+	for i in dists:			
+		if i > 0 and i < menor:
+			menor = i
+	return menor
+
+def dist(A, B):
+	Xa, Ya = A[0], A[1]
+	Xb, Yb = B[0], B[1]
+
+	equacao = ((Xb-Xa)^2)+((Yb-Ya)^2)
+	if equacao >= 0:
+		return math.sqrt(equacao)
+	else:
+		return -1
 # PRODUCTION
 # def load():
 # 	cordXY = []
@@ -27,10 +51,10 @@ def NearestPointProblem(cordXY):
 
 # TEST
 def loadFile(fileName):	
-	cordXY = [] 
 	f = open(fileName, 'r')
 	line = f.readline()
 	while line != '0':
+		cordXY = [] 
 		numCods = int(line)
 		for i in range(numCods):
 			resultList = []
@@ -39,10 +63,11 @@ def loadFile(fileName):
 			x, y = line.split(' ')
 			cordXY.append([int(x), int(y)])
 		line = f.readline()
-	f.close()
 
-	result = NearestPointProblem(cordXY)
-	print(result)
+		result = NearestPointProblem(cordXY)
+		print("%.4f" % result)
+
+	f.close()
 
 if __name__ == '__main__':
 	main()
