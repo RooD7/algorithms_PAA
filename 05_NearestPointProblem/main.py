@@ -9,8 +9,8 @@ def NearestPointProblem(cordXY):
 	print(cordXY)
 	print(len(cordXY))
 	dists = []
-	for i in range(len(cordXY)-1):
-		for j in range(len(cordXY)-1):
+	for i in range(len(cordXY)):
+		for j in range(len(cordXY)):
 			if i < j:
 				print(i,j)
 				dists.append(dist(cordXY[i], cordXY[j]))
@@ -27,6 +27,8 @@ def dist(A, B):
 	Xb, Yb = B[0], B[1]
 
 	equacao = ((Xb-Xa)^2)+((Yb-Ya)^2)
+	print('equacao')
+	print(equacao)
 	if equacao >= 0:
 		return math.sqrt(equacao)
 	else:
