@@ -4,82 +4,66 @@
 
 # from validador import imprimeSaida
 
-# def partition(R, left, right):
-# 	print('left: '+str(left)+'\tright: '+str(right))
-# 	if (right - left) == 0:
-# 		R[right] = 'X'
-# 		print(R)
-# 		return 0
-# 	elif (right - left) == 1:
-# 		R[left], R[right] = 'X','E'
-# 		print(R)
-# 		return 0
-# 	elif (right - left) == 2:
-# 		if R[left+1] == 'X':
-# 			R[left], R[left+1], R[right] = 'E','X','P'
-# 		if R[left+1] == 'E': 
-# 			R[left], R[left+1], R[right] = 'X','E','P'
-# 		if R[left+1] == 'P': 
-# 			R[left], R[left+1], R[right] = 'X','P','E'
-# 		if R[left+1] == '':
-# 			return 1
-# 		print(R)
-# 		return 0
-# 	else:
-# 		print(str(((right-left)+1)/2))
-# 		return int(((right-left)+1)/2)
-
-# def spaceProgram(R, left, right):
-	
-# 	if (left < right):
-# 		print('PARTITION')
-# 		pi = partition(R,left,right)
-# 		if pi > 0:
-# 			print('ESQUERDA')
-# 			spaceProgram(R, left+1, 0-1)
-# 			print('DIREITA')
-# 			spaceProgram(R, left+1, right-1)
-# 	return R
-
-# def genomaValido(genoma):
-# 	left = ""
-# 	x = 0
-# 	if genoma != "":
-# 		y = int((len(genoma)/2)+1)
-# 		print('=== gen: '+genoma)
-# 		while len(genoma) > 1:
-# 			while x < int(len(genoma)/2):
-# 				left += genoma[x]
-# 				print('l: '+left)
-# 				print('g: '+genoma[x+1:])
-# 				if genoma[x+1:].startswith(left):
-# 					return False
-# 				x += 1
-# 			x = 0
-# 			left = ""
-# 			genoma = genoma[1:]
-# 		return True
-# 	else:
-# 		return True
-
-
-def spaceProgram(R):
-	mid = (int)(len(R)/2)
-	left = mid-1
-	right = mid
-
-	# impar
-	if len(R)%2 == 1:
-		R[mid] = nextKey()
-	
-	for i in range(mid):
-		R[left] = nextKey()
-		R[right] = nextKey()
-		left -= 1
-		right +=1
+def spaceProgram(R, n):
+	ltrs = []
+	while len(R) != n:
+		(R, bk) = newKey(R, ltrs)
+		# apos recuar, guarda a ultima letra usada para nao entrar novamente e formar loop
+		if bk != '':
+			ltrs.append(bk)
+			# Se nenhuma letra foi possivel, recua novamente
+			if len(ltrs) == 3:
+				R = R[:len(R)-1]
+				ltrs = []
+		else:
+			ltrs = []
 	return R
 
+def newKey(R, ltrs):
+	if R == '':
+		R += nextKey()
+		return (R,'')
+	else:
+		x = 0
+		while(True):
+			key = nextKey()
+			if not key in ltrs:
+				R += key
+				# print('coloca: '+R[len(R)-1])
+				if not check(R):
+					# print('R: '+R+'\tTAM: '+str(len(R)))
+					R = R[:len(R)-1]
+					# print('tira: '+R[len(R)-1])
+					x += 1
+					# testou todas as letras possiveis, recua uma possicao
+					if x == 3:
+						aux = R[len(R)-1]
+						R = R[:len(R)-1]
+						x = 0
+						return (R, aux)
+				else:
+					return (R,'')
 
+def check(R):
+	mid = len(R)/2
+	if (mid < 1):
+		return True
+	else:
+		mid = (int)(len(R)/2)
+		temp = []
+		aux = ""
+		for i in range(len(R)-1,len(R)-1-mid, -1):
+			# print('i: '+str(i))
+			temp.insert(0,R[i])
+			if len(temp) == 1:
+				# print('aux.join(temp): '+aux.join(temp)+'\tR[i]: '+R[i-1])
+				if aux.join(temp) == R[i-1]:
+						return False
+			else:
+				# print('aux.join(temp): '+aux.join(temp)+'\tR[i:len(temp)]: '+R[i-len(temp):i])
+				if aux.join(temp) == R[i-len(temp):i]:
+						return False
+		return True
 
 def nextKey():
 	key = l.pop(0)
@@ -87,7 +71,7 @@ def nextKey():
 	return key
 
 # TEST
-f = open("1.in", "r")
+f = open("4.in", "r")
 line = f.readline()
 
 # PRODUCTION
@@ -96,9 +80,11 @@ line = f.readline()
 n = int(line)
 global l 
 l = ['X','E','P']
-R = ['']*n
+R = ''
 
-genoma = spaceProgram(R)
-
+genoma = spaceProgram(R,n)
+# TEST
 print(genoma)
+
+# PRODUCTION
 # imprimeSaida(genoma)
