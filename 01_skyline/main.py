@@ -58,22 +58,22 @@ def passoSkyline(R, T):
 inputs = []
 
 # TEST
-f = open("4.in", "r")
-line = f.readline()
-while True:
-	if line == '':
-		break
-	inputs.append(eval(line))
-	line = f.readline()
+# f = open("4.in", "r")
+# line = f.readline()
+# while True:
+# 	if line == '':
+# 		break
+# 	inputs.append(eval(line))
+# 	line = f.readline()
 
 # PRODUCTION
-# while True:
-# 	try:
-# 		line = str(input())
-# 		if line != "":
-# 			inputs.append(eval(line))
-# 	except(EOFError):
-# 		break
+while True:
+	try:
+		line = str(input())
+		if line != "":
+			inputs.append(eval(line))
+	except(EOFError):
+		break
 
 inputs.sort(key=lambda x: x[0])
 

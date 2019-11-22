@@ -106,24 +106,25 @@ def getMatrix():
 
 #TEST
 # def main():
-# 	keys = loadFile('2.in')
+# 	keys = loadFile('1.in')
 # 	print('KEYS')
 # 	print(keys)
 # 	matrix = getMatrix()
 # 	jumps = horseRide(matrix, keys)
-# 	jumps_str = [str(i) for i in jumps]
-# 	print('RESULT')
+# 	# jumps_str = [str(i) for i in jumps]
+# 	print('JUMPS')
 # 	print(jumps)
-# 	print(jumps_str)
-# 	print('LEN')
-# 	print(len(jumps)-1)
+# 	# print(jumps_str)
+# 	# print('LEN')
+# 	# print(len(jumps)-1)
 
 #PRODUCTION
 def main():
 	keys = load()
+	keysOri = keys.copy()
 	matrix = getMatrix()
 	jumps = horseRide(matrix, keys)
-	imprimeSaida(keys,jumps)
+	imprimeSaida(keysOri,jumps)
 
 # TEST
 def loadFile(fileName):	
